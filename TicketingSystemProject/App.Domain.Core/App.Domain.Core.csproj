@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Tickets\AppServices\" />
+    <Folder Include="Tickets\Data\" />
+    <Folder Include="Tickets\Services\" />
+    <Folder Include="Users\Data\" />
+    <Folder Include="Users\AppServices\" />
+    <Folder Include="Users\Services\" />
+  </ItemGroup>
+
 </Project>
