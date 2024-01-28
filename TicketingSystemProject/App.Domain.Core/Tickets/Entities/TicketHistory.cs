@@ -9,7 +9,7 @@ public class TicketHistory
     public Ticket Ticket { get; set; }
     public DateTime ModifiedAt { get; set; }
     public int UserId { get; set; }
-    public User ModifiedBy { get; set; }
+    public AppUser ModifiedBy { get; set; }
     public int StatusId { get; set; }
     public Constant Status {  get; set; }
 }

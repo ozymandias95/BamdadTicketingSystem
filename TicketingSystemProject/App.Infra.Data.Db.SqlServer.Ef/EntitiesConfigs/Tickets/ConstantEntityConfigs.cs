@@ -13,4 +13,4 @@ public class ConstantEntityConfigs : IEntityTypeConfiguration<Constant>
         builder.Property(c=>c.Title).HasMaxLength(50);
 
     }
-}
+} 

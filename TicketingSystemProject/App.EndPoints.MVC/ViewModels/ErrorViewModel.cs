@@ -1,6 +1,6 @@
 namespace App.EndPoints.MVC.Models
 {
-    public class ErrorViewModel
+    public class ErrorViewModel 
     {
         public string? RequestId { get; set; }
 

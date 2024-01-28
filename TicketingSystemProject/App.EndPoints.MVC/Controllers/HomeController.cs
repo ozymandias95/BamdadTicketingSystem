@@ -1,6 +1,9 @@
 using App.EndPoints.MVC.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace App.EndPoints.MVC.Controllers
 {
@@ -15,6 +18,15 @@ namespace App.EndPoints.MVC.Controllers
 
         public IActionResult Index()
         {
+
+           // List<Claim> claims = new List<Claim>()
+           //{
+           //    new Claim(ClaimTypes.Name,"Ali")
+           //};
+
+           // var identity = new ClaimsIdentity(claims,"MyClaim");
+           // ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+           // HttpContext.SignInAsync("MyClaim",principal);
             return View();
         }
 

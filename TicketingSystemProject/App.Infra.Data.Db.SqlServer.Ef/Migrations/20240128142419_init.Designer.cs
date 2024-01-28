@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240126142143_init")]
+    [Migration("20240128142419_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -115,25 +115,7 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                     b.ToTable("TicketHistories", (string)null);
                 });
 
-            modelBuilder.Entity("App.Domain.Core.Users.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("App.Domain.Core.Users.Entities.User", b =>
+            modelBuilder.Entity("App.Domain.Core.Users.Entities.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,18 +130,16 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("IdentityUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("AppUser", (string)null);
                 });
 
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Ticket", b =>
@@ -176,7 +156,7 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Domain.Core.Users.Entities.User", "User")
+                    b.HasOne("App.Domain.Core.Users.Entities.AppUser", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -203,7 +183,7 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Domain.Core.Users.Entities.User", "ModifiedBy")
+                    b.HasOne("App.Domain.Core.Users.Entities.AppUser", "ModifiedBy")
                         .WithMany("TicketHistories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -214,17 +194,6 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                     b.Navigation("Status");
 
                     b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("App.Domain.Core.Users.Entities.User", b =>
-                {
-                    b.HasOne("App.Domain.Core.Users.Entities.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Constant", b =>
@@ -241,12 +210,7 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                     b.Navigation("TicketHistories");
                 });
 
-            modelBuilder.Entity("App.Domain.Core.Users.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("App.Domain.Core.Users.Entities.User", b =>
+            modelBuilder.Entity("App.Domain.Core.Users.Entities.AppUser", b =>
                 {
                     b.Navigation("TicketHistories");
 

@@ -13,7 +13,7 @@ public class Ticket
     public string Description { get; set; }
     public DateTime SubmitAt { get; set; }
     public int UserId { get; set; }
-    public User User { get; set; }
+    public AppUser User { get; set; }
     public int CategoyId { get; set; }
     public virtual Constant Category { get; set; }
     public int PriorityId { get; set; }

@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Tickets\AppServices\" />
-    <Folder Include="Tickets\Data\" />
-    <Folder Include="Tickets\Services\" />
+    <Folder Include="Tickets\AppServicesContracts\" />
+    <Folder Include="Tickets\Data\RepositoriesContract\" />
+    <Folder Include="Tickets\ServicesContracts\" />
     <Folder Include="Users\Data\" />
-    <Folder Include="Users\AppServices\" />
-    <Folder Include="Users\Services\" />
+    <Folder Include="Users\AppServicesContracts\" />
+    <Folder Include="Users\ServicesContracts\" />
   </ItemGroup>
 
 </Project>
