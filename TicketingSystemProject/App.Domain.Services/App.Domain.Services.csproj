@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Users\" />
-    <Folder Include="Tickets\" />
+    <ProjectReference Include="..\App.Domain.Core\App.Domain.Core.csproj" />
   </ItemGroup>
 
 </Project>

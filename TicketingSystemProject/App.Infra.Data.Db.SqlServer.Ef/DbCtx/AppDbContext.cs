@@ -12,7 +12,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     public DbSet<AppUser> Users { get; set; }
     //public DbSet<Role> Roles { get; set; }
-    public DbSet<Constant> Constants { get; set; }
+    public DbSet<TicketAttribute> TicketAttributes { get; set; }
+    public DbSet<AttributeDetail> AttributeDetail { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<TicketHistory> ticketHistories { get; set; }
 
@@ -29,9 +30,14 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
             .WithMany()
             .HasForeignKey("IdentityUserId");
 
-        modelBuilder.Entity<IdentityUserRole<int>>()
-        .HasIndex(ur => ur.UserId)
-        .IsUnique();
+        //modelBuilder.Entity<IdentityUserRole<int>>()
+        //.HasIndex(ur => ur.UserId)
+        //.IsUnique();
+
+        modelBuilder.Entity<ApplicationRole>().HasData(
+            new ApplicationRole() {Id = 1,Name = "Support",NameFa = "پشتیبان" },
+            new ApplicationRole() { Id = 2, Name = "Customer", NameFa = "مشتری" },
+            new ApplicationRole() { Id = 3, Name = "Admin", NameFa = "مدیر" });
     }
 
     //var assembly = typeof(PtoductCategoryMapping).Assembly;

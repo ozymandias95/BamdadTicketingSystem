@@ -6,9 +6,8 @@ public class AppUser
     public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public DateTime BirthDate { get; set; }
+    public bool IsActive { get; set; }
     public int IdentityUserId { get; set; }
-    public virtual List<Ticket>? Tickets { get; set; }
-    public virtual List<TicketHistory>? TicketHistories { get; set; }
-
+    public virtual ICollection<Ticket>? Tickets { get; set; }
+    public virtual ICollection<TicketHistory>? TicketHistories { get; set; }
 }

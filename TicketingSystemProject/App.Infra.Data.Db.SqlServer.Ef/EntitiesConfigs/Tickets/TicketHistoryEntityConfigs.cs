@@ -16,8 +16,8 @@ public class TicketHistoryEntityConfigs : IEntityTypeConfiguration<TicketHistory
         builder.ToTable("TicketHistories");
         builder.HasKey(t => t.Id);
         builder.Property(t=>t.TicketId).IsRequired();  
-        builder.Property(t => t.ModifiedAt).HasColumnType("datetime");
-        builder.HasOne(t => t.ModifiedBy).WithMany(m=>m.TicketHistories).HasForeignKey(t=>t.UserId);
+        builder.Property(t => t.ModifiedAt).HasColumnType("datetime").HasDefaultValueSql("getdate()");
+        //builder.HasOne(t => t.ModifiedBy).WithMany(m=>m.TicketHistories).HasForeignKey(t=>t.UserId);
         builder.HasOne(t => t.Ticket).WithMany(t=>t.TicketHistories).HasForeignKey(t=>t.TicketId);
         builder.HasOne(t => t.Status).WithMany(s => s.TicketsByStatus).HasForeignKey(t => t.StatusId);
 

@@ -1,8 +1,99 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <link href="~/assets/img/user-headset(Favicon).png" rel="icon" type="image/png" sizes="32x32" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سیستم آنلاین تیکتینگ و پشتیبانی</title>
+    <meta name="author" content="Shayan Rasouli" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="~/assets/css/index-style.css" />
+</head>
+
+<body>
+    <!-- header section starts  -->
+
+    <header>
+        <div id="menu-bar" class="fas fa-bars"></div>
+
+        <nav class="navbar">
+            <a href="#home">خانه <i class="fas fa-home"></i></a>
+            <a asp-controller="Account" asp-action="Register" id="login-btn">ورود | ثبت نام <i class="fas fa-sign-in-alt" id="signin-btn"></i></a>
+            <a href="#TicketingSystem">درباره سیستم ما</a>
+        </nav>
+
+        <a href="./index.html" class="logo">my<span>T</span>icket</a>
+    </header>
+
+    <!-- header section ends -->
+    <!-- home section starts  -->
+
+    <section class="home" id="home">
+        <div class="content">
+            <h3>پشتیبانی آنلاین</h3>
+            <p>به صورت آنلاین می توانید با پشتیبانی مربوطه تماس حاصل فرمائید</p>
+        </div>
+    </section>
+
+    <!-- home section ends -->
+    <!-- services section starts  -->
+
+    <section class="TicketingSystem" id="TicketingSystem">
+        <h1 class="heading">
+            <span>Ticketing System</span>
+        </h1>
+
+        <div class="box-container">
+            <div class="box">
+                <i class="fas fa-headset"></i>
+                <h3>پشتیبانی</h3>
+                <p>
+                    اگر شما به دنبال راهی برای بهبود پاسخ‌دهی به مشتریان و عملکرد
+                    کسب‌وکار هستید، شما باید از یک سیستم تیکتینگ که به مرکز ارتباط شما
+                    متصل است استفاده کنید.
+                </p>
+            </div>
+            <div class="box">
+                <i class="fas fa-ticket-alt"></i>
+                <h3>قابلیت ایجاد چنیدن تیکت</h3>
+                <p>
+                    می توانید چندین تیکت با اولویت های متفاوت ایجاد کنید تا در اسرع وقت
+                    به آنها توسط بخش مربوطه پاسخ داده شود
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- services section ends -->
+    <!-- footer section  -->
+
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>درباره ما</h3>
+                <p>
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                    استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
+                    ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز
+                </p>
+            </div>
+            <div class="box">
+                <h3>دنبال کردن ما در</h3>
+                <a href="#">instagram</a>
+                <a href="#">linkedin</a>
+            </div>
+        </div>
+
+        <h1 class="credit">کلیه حقوق این وب سایت محفوظ می باشد.</h1>
+    </section>
+
+    <!-- custom js file link  -->
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>

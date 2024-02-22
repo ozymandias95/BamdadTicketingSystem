@@ -8,19 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\AdminArea\Data\" />
     <Folder Include="Areas\AdminArea\AdminViewModels\" />
     <Folder Include="Areas\AdminArea\Views\" />
+    <Folder Include="Areas\SupportArea\Controllers\" />
+    <Folder Include="Areas\SupportArea\Data\" />
+    <Folder Include="Areas\SupportArea\SupportViewModels\" />
+    <Folder Include="Areas\SupportArea\Views\" />
     <Folder Include="Areas\UserArea\Data\" />
     <Folder Include="Areas\UserArea\UserViewModels\" />
     <Folder Include="Areas\UserArea\Views\" />

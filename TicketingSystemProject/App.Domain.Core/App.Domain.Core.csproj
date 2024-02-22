@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Tickets\AppServicesContracts\" />
-    <Folder Include="Tickets\Data\RepositoriesContract\" />
-    <Folder Include="Tickets\ServicesContracts\" />
-    <Folder Include="Users\Data\" />
     <Folder Include="Users\AppServicesContracts\" />
-    <Folder Include="Users\ServicesContracts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
 </Project>

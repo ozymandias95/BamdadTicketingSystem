@@ -22,13 +22,16 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Constant", b =>
+            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.AttributeDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttibuteId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -37,7 +40,9 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Constants");
+                    b.HasIndex("AttibuteId");
+
+                    b.ToTable("AttributeDetail");
                 });
 
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Ticket", b =>
@@ -65,7 +70,9 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("SubmitAt")
-                        .HasColumnType("datetime");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getDate()");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -81,6 +88,24 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                     b.ToTable("Tickets", (string)null);
                 });
 
+            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.TicketAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketAttributes");
+                });
+
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.TicketHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -89,8 +114,17 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<int>("ModifiedById")
+                        .HasColumnType("int");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -103,11 +137,11 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ModifiedById");
+
                     b.HasIndex("StatusId");
 
                     b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TicketHistories", (string)null);
                 });
@@ -120,15 +154,17 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdentityUserId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -173,6 +209,20 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Support",
+                            NameFa = "پشتیبان"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customer",
+                            NameFa = "مشتری"
+                        });
                 });
 
             modelBuilder.Entity("App.Infra.Data.Db.SqlServer.Ef.DbCtx.ApplicationUser", b =>
@@ -324,9 +374,6 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
@@ -349,21 +396,32 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.AttributeDetail", b =>
+                {
+                    b.HasOne("App.Domain.Core.Tickets.Entities.TicketAttribute", "Attribute")
+                        .WithMany("AttributeDetails")
+                        .HasForeignKey("AttibuteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+                });
+
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Ticket", b =>
                 {
-                    b.HasOne("App.Domain.Core.Tickets.Entities.Constant", "Category")
+                    b.HasOne("App.Domain.Core.Tickets.Entities.AttributeDetail", "Category")
                         .WithMany("TicketsByCategory")
                         .HasForeignKey("CategoyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Domain.Core.Tickets.Entities.Constant", "Priority")
+                    b.HasOne("App.Domain.Core.Tickets.Entities.AttributeDetail", "Priority")
                         .WithMany("TicketsByPriority")
                         .HasForeignKey("PriorityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Domain.Core.Users.Entities.AppUser", "User")
+                    b.HasOne("App.Domain.Core.Users.Entities.AppUser", "SubmitBy")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -373,12 +431,18 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
 
                     b.Navigation("Priority");
 
-                    b.Navigation("User");
+                    b.Navigation("SubmitBy");
                 });
 
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.TicketHistory", b =>
                 {
-                    b.HasOne("App.Domain.Core.Tickets.Entities.Constant", "Status")
+                    b.HasOne("App.Domain.Core.Users.Entities.AppUser", "ModifiedBy")
+                        .WithMany("TicketHistories")
+                        .HasForeignKey("ModifiedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Domain.Core.Tickets.Entities.AttributeDetail", "Status")
                         .WithMany("TicketsByStatus")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -387,12 +451,6 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                     b.HasOne("App.Domain.Core.Tickets.Entities.Ticket", "Ticket")
                         .WithMany("TicketHistories")
                         .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Domain.Core.Users.Entities.AppUser", "ModifiedBy")
-                        .WithMany("TicketHistories")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -463,7 +521,7 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Constant", b =>
+            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.AttributeDetail", b =>
                 {
                     b.Navigation("TicketsByCategory");
 
@@ -475,6 +533,11 @@ namespace App.Infra.Data.Db.SqlServer.Ef.Migrations
             modelBuilder.Entity("App.Domain.Core.Tickets.Entities.Ticket", b =>
                 {
                     b.Navigation("TicketHistories");
+                });
+
+            modelBuilder.Entity("App.Domain.Core.Tickets.Entities.TicketAttribute", b =>
+                {
+                    b.Navigation("AttributeDetails");
                 });
 
             modelBuilder.Entity("App.Domain.Core.Users.Entities.AppUser", b =>

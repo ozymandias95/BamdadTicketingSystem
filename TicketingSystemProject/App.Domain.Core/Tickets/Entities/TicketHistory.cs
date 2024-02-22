@@ -11,5 +11,6 @@ public class TicketHistory
     public int UserId { get; set; }
     public AppUser ModifiedBy { get; set; }
     public int StatusId { get; set; }
-    public Constant Status {  get; set; }
+    public AttributeDetail Status {  get; set; }
+    public string Message { get; set; }
 }
